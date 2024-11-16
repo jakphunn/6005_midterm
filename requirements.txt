@@ -2,3 +2,5 @@ streamlit
 plotly
 pinotdb
 pandas
+plotly.graph_objects
+plotly.express

@@ -1,16 +1,9 @@
 import streamlit as st
-
-st.title("🎈 My new app")
-st.write(
-    "Let's start building! For help and inspiration, head over to [docs.streamlit.io](https://docs.streamlit.io/)."
-)
-
-import streamlit as st
-from plotly import graph_objects as go
-from plotly.subplots import make_subplots
+import plotly.graph_objects as go
 import plotly.express as px
 from pinotdb import connect
 import pandas as pd
+
 
 # Connect to Apache Pinot
 conn = connect(host='47.129.174.92', port=8099, path='/query/sql', schema='http')
