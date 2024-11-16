@@ -4,7 +4,6 @@ import plotly.express as px
 from pinotdb import connect
 import pandas as pd
 
-
 # Connect to Apache Pinot
 conn = connect(host='47.129.174.92', port=8099, path='/query/sql', schema='http')
 curs = conn.cursor()
