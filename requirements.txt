@@ -2,3 +2,4 @@ streamlit
 plotly
 pinotdb
 pandas
+streamlit_autorefresh

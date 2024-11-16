@@ -3,16 +3,23 @@ import plotly.graph_objects as go
 import plotly.express as px
 from pinotdb import connect
 import pandas as pd
+from streamlit_autorefresh import st_autorefresh
+
+# Set Streamlit page configuration
+st.set_page_config(page_title="DeliciousDogDish🐶", layout="wide")
+
+# Enable auto-refresh
+st_autorefresh(interval=5000)
+
+# Add a page title and subtitle
+st.title("DeliciousDogDish")
+st.subheader("Explore new yummy experience")
 
 # Connect to Apache Pinot
 conn = connect(host='47.129.174.92', port=8099, path='/query/sql', schema='http')
 curs = conn.cursor()
 
-# Set the Streamlit page configuration
-st.set_page_config(layout="wide", page_title="Real-Time Dashboard")
-
-# Fetch data and define graphs
-# Graph 1: Stacked Bar Chart (Top-Right)
+# Define your graphs (as per your previous code)
 def graph1():
     curs.execute('''SELECT 
       DOG_MENU,
@@ -26,7 +33,6 @@ def graph1():
       total_quantity DESC
     LIMIT 10;''')
     data = [row for row in curs.fetchall()]
-
     menu_items = list(set(row[0] for row in data))
     cooking_levels = list(set(row[1] for row in data))
     menu_quantities = {menu: {level: 0 for level in cooking_levels} for menu in menu_items}
@@ -52,7 +58,6 @@ def graph1():
     )
     return fig
 
-# Graph 2: Leaderboard Table (Bottom-Left)
 def graph2():
     curs.execute('''SELECT 
       USERID,
@@ -102,7 +107,6 @@ def graph2():
     )
     return fig
 
-# Graph 3: Heatmap (Top-Left)
 def graph3():
     curs.execute('''SELECT 
       DOG_BREED,
@@ -138,7 +142,6 @@ def graph3():
     )
     return fig
 
-# Graph 4: Geographic Map (Bottom-Right)
 def graph4():
     curs.execute('''SELECT 
       regionid, 
@@ -190,7 +193,7 @@ def graph4():
     )
     return fig
 
-# Streamlit Layout
+# Layout for the dashboard
 col1, col2 = st.columns(2)
 with col1:
     st.plotly_chart(graph3(), use_container_width=True)  # Top-Left
